@@ -1,3 +1,17 @@
 report/_preview/
 scripts/_frames
 slides_link_rects.json
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.bbl-SAVE-ERROR
