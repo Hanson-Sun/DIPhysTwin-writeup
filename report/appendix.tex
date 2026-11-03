@@ -1,0 +1,266 @@
+\appendix
+
+\chapter{Extended Results and Result Videos}
+\label{app:results}
+
+The recordings below accompany this report. They are grouped by what they compare: within each
+comparison table one row shows the same scene under two or more pipeline variants, so the effect of
+a single change can be seen directly. Scene names describe the captured interaction (for example
+``cloth, single lift'' is a cloth lifted from one point). Recording links are given in shortened
+form.
+
+\section{Improvement Chain on the Sloth Sequence}
+\label{sec:app-vid-sloth-chain}
+
+Table~\ref{tab:app-vid-sloth} shows the improvement chain on the sloth sequence: the original
+pipeline (sensor reference depth), the pipeline with DA3 inferred depth, and the pipeline with
+smoothed DA3 depth. Each stage replaces one component of the previous one. The measurements in
+Chapter~\ref{cha:evaluation} quantify the last step: for this sequence the smoothed depth keeps the
+agreement with the sensor reference (Spearman 0.988, ordinal error 3.3\% on camera 0) with a higher
+gradient correlation than raw DA3 (0.169 against 0.117; Table~\ref{tab:eval-depth-sensor}).
+
+\begin{table}[H]
+    \caption{Sloth sequence: the three pipeline stages.}
+    \label{tab:app-vid-sloth}
+    \begin{center}
+        \small
+        \begin{tabular}{@{}p{6.2cm}l@{}} \toprule
+            Stage & Recording \\ \midrule
+            1. Original pipeline (reference depth) & \url{youtu.be/UyQw7Hx25D8} \\
+            2. DA3 inferred depth with streaming   & \url{youtu.be/Wldxhw5DKHs} \\
+            3. Smoothed DA3 inferred depth         & \url{youtu.be/xjoEsQoWlXw} \\ \bottomrule
+        \end{tabular}
+    \end{center}
+\end{table}
+
+\section{Effect of the Temporal Depth Smoother}
+\label{sec:app-vid-smoother}
+
+\paragraph{Raw DA3 depth against smoothed depth.}
+\label{sec:app-vid-raw}
+
+Each row of Table~\ref{tab:app-vid-raw} shows one scene twice: the raw DA3 depth prediction and the
+same frames after temporal smoothing. The raw recordings show the frame-to-frame flicker that
+motivates the smoother (Chapter~\ref{cha:smoother}): the depth of static surfaces shifts between
+consecutive frames and the object--background boundary moves.
+
+\begin{table}[H]
+    \caption{Raw DA3 depth against smoothed depth.}
+    \label{tab:app-vid-raw}
+    \begin{center}
+        \small
+        \begin{tabular}{@{}p{3.4cm}ll@{}} \toprule
+            Scene & Raw DA3 depth & Smoothed depth \\ \midrule
+            Cloth, single lift & \url{youtu.be/c_K8Iw4v8GM} & \url{youtu.be/Oix-bPoGo1Y} \\
+            Zebra, double lift & \url{youtu.be/22x_s_dwmJA} & \url{youtu.be/jrlRHbfc8wo} \\
+            Mat, single lift   & \url{youtu.be/CfmDhliW4e4} & \url{youtu.be/eaA4PYEcdmU} \\ \bottomrule
+        \end{tabular}
+    \end{center}
+\end{table}
+
+\paragraph{Pipeline replay before and after smoothing.}
+\label{sec:app-vid-smooth}
+
+Table~\ref{tab:app-vid-smooth} shows the pipeline replay of the same two scenes before and after
+the inferred depth was smoothed, at matched times.
+
+\begin{table}[H]
+    \caption{Pipeline replay before and after depth smoothing.}
+    \label{tab:app-vid-smooth}
+    \begin{center}
+        \small
+        \begin{tabular}{@{}p{3.4cm}ll@{}} \toprule
+            Scene & Before smoothing & After smoothing \\ \midrule
+            Cloth, single lift  & \url{youtu.be/oMyWfrkThjA} & \url{youtu.be/sFhpqg2umsA} \\
+            Sloth, double stretch & \url{youtu.be/Pyi-6zr_SVY} & \url{youtu.be/DJOm86ircG4} \\ \bottomrule
+        \end{tabular}
+    \end{center}
+\end{table}
+
+\section{Depth-Source Variants}
+\label{sec:app-vid-depth-variants}
+
+Table~\ref{tab:app-vid-variants} lists further depth sources used for the same inference
+comparison. The reference and DA3 rows repeat the first two stages of
+Table~\ref{tab:app-vid-sloth} so that the set is self-contained.
+
+\begin{table}[H]
+    \caption{Inference with alternative depth sources.}
+    \label{tab:app-vid-variants}
+    \begin{center}
+        \small
+        \begin{tabular}{@{}p{4.6cm}ll@{}} \toprule
+            Depth source & Recording & Notes \\ \midrule
+            Reference (sensor depth) & \url{youtu.be/UyQw7Hx25D8} & original pipeline \\
+            DA3 inferred depth with streaming & \url{youtu.be/Wldxhw5DKHs} & adopted depth source \\
+            VDA                      & \url{youtu.be/GUog6wd8YiI} & video model oracle \\
+            Without streaming        & \url{youtu.be/NbU0TzVzMGM} & without chunk stitching \\ \bottomrule
+        \end{tabular}
+    \end{center}
+\end{table}
+
+\section{Streaming Inference}
+\label{sec:app-vid-streaming}
+
+Table~\ref{tab:app-vid-streaming} compares depth inference with and without chunk stitching
+(streaming), for the final data and the final matching visualisations, with a reference recording
+of the final data.
+
+\begin{table}[H]
+    \caption{Streaming inference against non-streaming inference.}
+    \label{tab:app-vid-streaming}
+    \begin{center}
+        \small
+        \begin{tabular}{@{}p{3.4cm}lll@{}} \toprule
+            Visualisation & Without streaming & With streaming & Reference \\ \midrule
+            Final data & \url{youtu.be/wtfQiYJZQfQ} & \url{youtu.be/b3FfEog8buc} & \url{youtu.be/bH6H2vx3Q4k} \\
+            Final matching & \url{youtu.be/m4g420lpaH4} & \url{youtu.be/M2VwlY6B9j4} & --- \\ \bottomrule
+        \end{tabular}
+    \end{center}
+\end{table}
+
+\section{Tracking Comparison with SpatialTrackerV2}
+\label{sec:app-vid-spatracker}
+
+Table~\ref{tab:app-vid-spatracker} compares the tracked result of the same monkey sequence with the
+2D-tracking-based pipeline and with SpatialTrackerV2 \parencite{spatrackerv2}.
+
+\begin{table}[H]
+    \caption{Monkey sequence: DIPhysTwin against SpatialTrackerV2.}
+    \label{tab:app-vid-spatracker}
+    \begin{center}
+        \small
+        \begin{tabular}{@{}p{3.6cm}ll@{}} \toprule
+            Variant & Recording & Notes \\ \midrule
+            DIPhysTwin & \url{youtu.be/8WwHEsOErsI} & spatial separation on fast movement \\
+            SpatialTrackerV2 & \url{youtu.be/DijnnXjS_Xc} & frequent 3D artefacts \\ \bottomrule
+        \end{tabular}
+    \end{center}
+\end{table}
+
+\section{Environment Interaction: Rope with and without Ground Alignment}
+\label{sec:app-vid-ground}
+
+Table~\ref{tab:app-vid-ground} shows the rope sequence before and after the ground-plane alignment
+was added (Chapter~\ref{cha:system-design}), together with the reference recording of the same
+interaction.
+
+\begin{table}[H]
+    \caption{Rope sequence: stiff result, reference interaction, and recovered ground contact.}
+    \label{tab:app-vid-ground}
+    \begin{center}
+        \small
+        \begin{tabular}{@{}p{5.2cm}ll@{}} \toprule
+            Variant & Recording & Notes \\ \midrule
+            Without ground alignment & \url{youtu.be/I59sUpi_Rvk}  & rope overly stiff \\
+            Reference interaction    & \url{youtu.be/fhun0051Rps}  & rope rests on the ground \\
+            With ground alignment    & \url{youtu.be/zXyEl8aMBYk}  & ground contact recovered \\ \bottomrule
+        \end{tabular}
+    \end{center}
+\end{table}
+
+\section{Individual Demonstrations}
+\label{sec:app-vid-solo}
+
+Single recordings without a paired comparison, grouped by type.
+
+\begin{table}[H]
+    \caption{Individual demonstration recordings.}
+    \label{tab:app-vid-solo}
+    \begin{center}
+        \small
+        \begin{tabular}{@{}llp{4.6cm}@{}} \toprule
+            Recording & Scene & Notes \\ \midrule
+            \multicolumn{3}{@{}l}{\emph{Tracking results}} \\
+            \url{youtu.be/94h6tWvJEwE} & Mat, double bend & tracking reconstruction \\
+            \url{youtu.be/ICQz9aUabAo} & Mat, single lift & tracking reconstruction \\ \midrule
+            \multicolumn{3}{@{}l}{\emph{Pipeline demonstrations, PhysTwin data}} \\
+            \url{youtu.be/nsndv85sxcU} & Sloth, double stretch & \\
+            \url{youtu.be/t97kz2DZZxk} & Zebra, double lift & \\
+            \url{youtu.be/wVsCuG4sxWI} & Cloth, double hand lift & \\
+            \url{youtu.be/FUNXNBtAupQ} & Cloth, single lift & degraded result \\
+            \url{youtu.be/I59sUpi_Rvk} & Rope, single lift & see Table~\ref{tab:app-vid-ground} \\ \midrule
+            \multicolumn{3}{@{}l}{\emph{Pipeline demonstrations, self-collected data}} \\
+            \url{youtu.be/U8ICkg25_4U} & Mat, double bend & \\
+            \url{youtu.be/rtjAy8hZE8k} & Mat, single lift & \\
+            \url{youtu.be/RTn-0Zg8wAA} & Water bottle, single lift & poor result \\
+            \url{youtu.be/SbAI6K0lMDk} & T-shirt, single lift & \\
+            \url{youtu.be/svUzZCJdgDk} & Monkey, double bend & \\
+            \url{youtu.be/yZ0TzMy9XA0} & Package, single lift & \\ \midrule
+            \multicolumn{3}{@{}l}{\emph{New-data captures, three camera corners}} \\
+            \url{youtu.be/sFbwJNk7rUs} & Mat, single lift & camera corner 0 \\
+            \url{youtu.be/LdueFxEb7H8} & Mat, single lift & camera corner 1 \\
+            \url{youtu.be/ZcDswgNRI40} & Mat, single lift & camera corner 2 \\ \midrule
+            \multicolumn{3}{@{}l}{\emph{Issue and failure recordings}} \\
+            \url{youtu.be/e6UjWpdsnjg} & Mat, double bend & object split during interaction \\
+            \url{youtu.be/8WwHEsOErsI} & Monkey, double bend & see Table~\ref{tab:app-vid-spatracker} \\
+            \url{youtu.be/4lE1MX_xUnM} & Rope, single lift & depth flicker propagating into 3D tracks \\ \midrule
+            \multicolumn{3}{@{}l}{\emph{Further recordings}} \\
+            \url{youtu.be/TVVKJ1hBin8} & Sloth, double stretch & interactive playground session \\
+            \url{youtu.be/cywRH67oSGY} & Sloth, double stretch & depth-quality comparison with metrics \\
+            \url{youtu.be/R-0QuXLqUTQ} & Mat, double bend & early result, poor \\
+            \url{youtu.be/44K07VyE1iI} & Mat, single lift & early result \\ \bottomrule
+        \end{tabular}
+    \end{center}
+\end{table}
+
+\chapter{Hyper-parameters and Loss Weights}
+\label{app:hyperparameters}
+
+This appendix records the settings needed to reproduce the temporal depth smoother. The values
+are the training configurations saved with the checkpoints.
+
+\begin{table}[H]
+    \caption{Training and inference hyper-parameters of the reported smoother run.}
+    \label{tab:app-hyperparameters}
+    \begin{center}
+        \begin{tabular}{@{}p{3.6cm}p{10.4cm}@{}}
+            \toprule
+            Setting & Value \\
+            \midrule
+            Optimiser & Adam; weight decay $10^{-4}$ \\
+            Learning rate & $3\times10^{-3}$ \\
+            Schedule & ReduceLROnPlateau; factor $0.5$, patience 5 \\
+            Batch size & 2 \\
+            Epochs & 50; checkpoints saved for epochs 0--49 \\
+            Precision & CUDA autocast with bfloat16 \\
+            Hardware & NVIDIA GeForce RTX 3060 \\
+            Inference chunk length & 16 frames per chunk, matching the training window; chunks
+            overlap and are blended with a weighted window \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+\end{table}
+
+\begin{table}[H]
+    \caption{Loss weights of the best saved smoother runs; the first row is the run behind the
+    reported results. $\lambda_{\mathrm{edge}}$ and $\lambda_{\mathrm{grad}}$ are the
+    edge-sharpness and spatial-gradient terms of Section~\ref{sec:smoother-losses}.}
+    \label{tab:app-lossweights}
+    \begin{center}
+        \small
+        \begin{tabular}{@{}p{5.6cm}ccccc@{}}
+            \toprule
+            Run & $\lambda_{\mathrm{fid}}$ & $\lambda_{\mathrm{tgm}}$ & $\lambda_{\mathrm{tv}}$
+            & $\lambda_{\mathrm{edge}}$ & $\lambda_{\mathrm{grad}}$ \\
+            \midrule
+                        \texttt{best\_model} & 1.2 & 0.5 & 0.5 & 0.3 & 0 \\
+            \texttt{best\_model\_50\_epochs} & 1.2 & 0.5 & 0.5 & 0.3 & 0 \\
+            \texttt{best\_model\_50\_epochs\_no\_edge\_blur} & 1.3 & 0.8 & 0.8 & 0.05 & 0.04 \\
+            \texttt{best\_model\_new\_data} & 1.3 & 0.8 & 0.8 & 0.05 & 0.05 \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+\end{table}
+
+The temporal spans follow the code defaults used by all runs: TGM $k = 1, 2, 3$ with weights
+$1, 0.25, 0.07$, and TV $k = 1, 2$ with weights $1, 0.25$.
+
+
+
+\chapter{Source Code}
+\label{app:code}
+
+The implementation is released at
+\url{https://github.com/Hanson-Sun/PhysTwin/tree/depth-inference-phystwin}.
+

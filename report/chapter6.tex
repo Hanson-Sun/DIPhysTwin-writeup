@@ -1,0 +1,69 @@
+\chapter{Discussion, Limitations and Future Work}\label{cha:discussion}
+\label{cha:conclusion}
+
+\section{Summary and Diagnosis}
+\label{sec:disc-diagnosis}\label{sec:concl-summary}
+
+DIPhysTwin adapts PhysTwin to multi-view RGB video: camera poses, depth and ground alignment are
+inferred, then handed to its reconstruction and warp-model stages. The new component is a residual
+depth smoother, supervised by Video Depth Anything (VDA) as a motion oracle and trained without
+ground-truth depth \parencite{phystwin, vda}.
+
+The pipeline is still 2D-first: segmentation and CoTracker run on RGB, and depth lifts their output
+into 3D \parencite{cotracker}. Depth errors therefore reach the tracks, the shape prior, the
+reconstruction and the warp model at once. No tested depth model was good at both jobs. DUSt3R,
+MASt3R and DA3 give geometry but flicker, while VDA is smooth but monocular and geometrically weak
+\parencite{dust3r, mast3r, da3, vda}. The smoother takes geometry from the first group and motion
+from the second, at the cost of some blur (Chapter~\ref{cha:evaluation}).
+
+Two alternatives were considered and dropped. Replacing the weak parts of the PhysTwin pipeline
+with a multi-pose streaming depth model and multi-view tracking would require a new model
+\parencite{dust3r, mast3r, cotracker}. Rewriting around 4D Gaussian splatting would remove explicit
+poses but move segmentation and tracking into 3D \parencite{fourdgs, gaussiansplatting}.
+\label{sec:disc-alternatives}
+
+\section{Limitations}
+\label{sec:disc-limitations}
+
+The depth stage is not truly streaming. Duplicating fixed views as a dynamic sequence helps only
+over short windows; larger chunks make the Umeyama alignment singular \parencite{umeyama1991}. The
+three cameras also differ in intrinsics and distortion, use rolling shutters and automatic exposure
+and focus, and were never time-synchronised; software only aligned their start times. The later rig
+used measured intrinsics and extrinsics only as a reference, and may still be slightly fisheye. These conditions explain
+the observed symptoms: flicker, spatial drift within a clip, and failures on fast motion and unusual
+rotations. \label{sec:disc-streaming}\label{sec:disc-data}
+
+The environment is static. The floor collider fixed the over-stiff behaviour for supported
+objects, but a rope has little ground support and still needs unrealistic stiffness. The smoother
+blurs depth, and the current evaluation cannot say whether it removes flicker without also removing
+fine geometry. \label{sec:disc-environment}\label{sec:disc-smoothing}
+
+The depth comparison covers one sequence, the remaining evidence is qualitative, and the loss
+weights are untuned. The findings on object size, speed and occlusion are observed trends from a small number of sessions.
+\label{sec:disc-validity}
+
+\section{Future Work}
+\label{sec:concl-future}
+
+The depth stage needs true multi-view streaming. A model that accepts several camera poses would
+replace the chunk-overlap workaround and its unstable alignment \parencite{umeyama1991}. The same
+model should be both spatially consistent and temporally smooth, and the shape prior needs to handle
+non-watertight meshes \parencite{arap}. \label{sec:concl-streaming}\label{sec:concl-depth}
+
+The capture should be repeated with synchronisation cues, locked exposure and focus, and measured
+intrinsics, allowing for fisheye distortion.
+Tracking needs to survive occlusion and partially visible objects; MVTracker and direct 3D tracking
+are the next candidates \parencite{mvtracker, spatrackerv2}. Environment interaction
+should move from static planes to moving rigid bodies. \label{sec:concl-data}\label{sec:concl-tracking}\label{sec:concl-environment}
+
+The smoother needs loss-term and span ablations, multi-view evaluation, and comparison against
+reference geometry where any exists. After that the pipeline should be cleaned up and released.
+\label{sec:concl-code}
+
+\section{Conclusion}
+\label{sec:concl-closing}
+
+DIPhysTwin turns multi-view RGB video into an interactive digital twin, and the smoother reduces
+temporal flicker without ground-truth depth. Results are strongest for large, slow-moving
+objects under controlled capture. Depth coherence, occlusion, calibration and tracking remain the
+main limitations.

@@ -1,0 +1,185 @@
+% ------------------------------------------------------------------------------
+% References bib file
+% This file should contain the citation information for the references included in the report.
+% ------------------------------------------------------------------------------
+
+% --- The base pipeline -------------------------------------------------------
+
+@misc{phystwin,
+	title = {{PhysTwin}: Physics-Informed Reconstruction and Simulation of Deformable Objects from Videos},
+	author = {Jiang, Hanxiao and Hsu, Hao-Yu and Zhang, Kaifeng and Yu, Hsin-Ni and Wang, Shenlong and Li, Yunzhu},
+	note = {ICCV 2025},
+	year = {2025},
+	howpublished = {\url{https://jianghanxiao.github.io/phystwin-web/}}
+}
+
+% --- Depth estimation --------------------------------------------------------
+
+@misc{da3,
+	title = {{Depth Anything 3}: Recovering the Visual Space from Any Views},
+	author = {Lin, Haotong and Chen, Sili and Liew, Jun Hao and Chen, Donny Y. and Li, Zhenyu and Zhao, Yang and Peng, Sida and Guo, Hengkai and Zhou, Xiaowei and Shi, Guang and Feng, Jiashi and Kang, Bingyi},
+	note = {ICLR 2026. arXiv:2511.10647},
+	year = {2026}
+}
+
+@inproceedings{dust3r,
+	title = {{DUSt3R}: Geometric {3D} Vision Made Easy},
+	author = {Wang, Shuzhe and Leroy, Vincent and Cabon, Yohann and Chidlovskii, Boris and Revaud, J{\'e}r{\^o}me},
+	booktitle = {IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+	year = {2024}
+}
+
+@inproceedings{mast3r,
+	title = {Grounding Image Matching in {3D} with {MASt3R}},
+	author = {Leroy, Vincent and Cabon, Yohann and Revaud, J{\'e}r{\^o}me},
+	booktitle = {European Conference on Computer Vision (ECCV)},
+	year = {2024}
+}
+
+@misc{pi3,
+	title = {{$\pi^3$}: Permutation-Equivariant Visual Geometry Learning},
+	author = {Wang, Yifan and Zhou, Jianjun and Zhu, Haoyi and Chang, Wenzheng and Zhou, Yang and Li, Zizun and Chen, Junyi and Pang, Jiangmiao and Shen, Chunhua and He, Tong},
+	note = {ICLR 2026. arXiv:2507.13347},
+	year = {2026}
+}
+
+% --- Temporal depth stabilisation (prior art for the smoother) ---------------
+
+@inproceedings{vda,
+	title = {{Video Depth Anything}: Consistent Depth Estimation for Super-Long Videos},
+	author = {Chen, Sili and Guo, Hengkai and Zhu, Shengnan and Zhang, Feihu and Huang, Zilong and Feng, Jiashi and Kang, Bingyi},
+	booktitle = {IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+	year = {2025}
+}
+
+@misc{stabledpt,
+	title = {{StableDPT}: Temporal Stable Monocular Video Depth Estimation},
+	author = {Sobko, Ivan and Riemenschneider, Hayko and Gross, Markus and Schroers, Christopher},
+	note = {arXiv:2601.02793},
+	year = {2026}
+}
+
+@inproceedings{nvds,
+	title = {Neural Video Depth Stabilizer},
+	author = {Wang, Yiran and Shi, Min and Li, Jiaqi and Huang, Zihao and Cao, Zhiguo and Zhang, Jianming and Xian, Ke and Lin, Guosheng},
+	booktitle = {IEEE/CVF International Conference on Computer Vision (ICCV)},
+	year = {2023}
+}
+
+@article{nvdsp,
+	title = {{NVDS+}: Towards Efficient and Versatile Neural Stabilizer for Video Depth Estimation},
+	author = {Wang, Yiran and Shi, Min and Li, Jiaqi and Hong, Chaoyi and Huang, Zihao and Peng, Juewen and Cao, Zhiguo and Zhang, Jianming and Xian, Ke and Lin, Guosheng},
+	journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+	volume = {47},
+	number = {1},
+	pages = {583--600},
+	year = {2025}
+}
+
+@inproceedings{li2023consistent,
+	title = {Towards Practical Consistent Video Depth Estimation},
+	author = {Li, Pengzhi and Ding, Yikang and Li, Linge and Guan, Jingwei and Li, Zhiheng},
+	booktitle = {Proceedings of the 2023 ACM International Conference on Multimedia Retrieval (ICMR)},
+	pages = {388--397},
+	year = {2023},
+	doi = {10.1145/3591106.3592264}
+}
+
+% --- Dense point tracking ----------------------------------------------------
+
+@inproceedings{cotracker,
+	title = {{CoTracker}: It is Better to Track Together},
+	author = {Karaev, Nikita and Rocco, Ignacio and Graham, Benjamin and Neverova, Natalia and Vedaldi, Andrea},
+	booktitle = {European Conference on Computer Vision (ECCV)},
+	year = {2024}
+}
+
+@inproceedings{mvtracker,
+	title = {Multi-View {3D} Point Tracking},
+	author = {Raji{\v{c}}, Frano and Xu, Haofei and Mihajlovic, Marko and Li, Siyuan and Demir, Irem and G{\"u}nd{\"o}{\u{g}}du, Emircan and Ke, Lei and Prokudin, Sergey and Pollefeys, Marc and Tang, Siyu},
+	booktitle = {IEEE/CVF International Conference on Computer Vision (ICCV)},
+	year = {2025}
+}
+
+@inproceedings{spatrackerv2,
+	title = {{SpatialTrackerV2}: Advancing {3D} Point Tracking with Explicit Camera Motion},
+	author = {Xiao, Yuxi and Wang, Jianyuan and Xue, Nan and Karaev, Nikita and Makarov, Iurii and Kang, Bingyi and Zhu, Xing and Bao, Hujun and Shen, Yujun and Zhou, Xiaowei},
+	booktitle = {IEEE/CVF International Conference on Computer Vision (ICCV)},
+	year = {2025}
+}
+
+% --- Segmentation, reconstruction and rendering ------------------------------
+
+@inproceedings{sam,
+	title = {Segment Anything},
+	author = {Kirillov, Alexander and Mintun, Eric and Ravi, Nikhila and Mao, Hanzi and Rolland, Chloe and Gustafson, Laura and Xiao, Tete and Whitehead, Spencer and Berg, Alexander C. and Lo, Wan-Yen and Doll{\'a}r, Piotr and Girshick, Ross},
+	booktitle = {IEEE/CVF International Conference on Computer Vision (ICCV)},
+	year = {2023}
+}
+
+@misc{sam3,
+	title = {{SAM 3}: Segment Anything with Concepts},
+	author = {Meta AI},
+	note = {arXiv:2511.16719},
+	year = {2025}
+}
+
+@misc{groundedsam,
+	title = {Grounded {SAM}: Assembling Open-World Models for Diverse Visual Tasks},
+	author = {Ren, Tianhe and Liu, Shilong and Zeng, Ailing and Lin, Jing and Li, Kunchang and Cao, He and Chen, Jiayu and Huang, Xinyu and Chen, Yukang and Yan, Feng and Zeng, Zhaoyang and Zhang, Hao and Li, Feng and Yang, Jie and Li, Hongyang and Jiang, Qing and Zhang, Lei},
+	note = {arXiv:2401.14159},
+	year = {2024}
+}
+
+@inproceedings{trellis,
+	title = {Structured {3D} Latents for Scalable and Versatile {3D} Generation},
+	author = {Xiang, Jianfeng and Lv, Zelong and Xu, Sicheng and Deng, Yu and Wang, Ruicheng and Zhang, Bowen and Chen, Dong and Tong, Xin and Yang, Jiaolong},
+	booktitle = {IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+	year = {2025}
+}
+
+@article{gaussiansplatting,
+	title = {{3D} Gaussian Splatting for Real-Time Radiance Field Rendering},
+	author = {Kerbl, Bernhard and Kopanas, Georgios and Leimk{\"u}hler, Thomas and Drettakis, George},
+	journal = {ACM Transactions on Graphics},
+	volume = {42},
+	number = {4},
+	year = {2023}
+}
+
+@inproceedings{fourdgs,
+	title = {{4D} Gaussian Splatting for Real-Time Dynamic Scene Rendering},
+	author = {Wu, Guanjun and Yi, Taoran and Fang, Jiemin and Xie, Lingxi and Zhang, Xiaopeng and Wei, Wei and Liu, Wenyu and Tian, Qi and Wang, Xinggang},
+	booktitle = {IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+	year = {2024}
+}
+
+% --- Shape prior and alignment ----------------------------------------------
+
+@inproceedings{arap,
+	title = {As-Rigid-As-Possible Surface Modeling},
+	author = {Sorkine, Olga and Alexa, Marc},
+	booktitle = {Eurographics Symposium on Geometry Processing (SGP)},
+	year = {2007}
+}
+
+@article{umeyama1991,
+	title = {Least-Squares Estimation of Transformation Parameters Between Two Point Patterns},
+	author = {Umeyama, Shinji},
+	journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+	volume = {13},
+	number = {4},
+	pages = {376--380},
+	year = {1991}
+}
+
+% --- Simulation --------------------------------------------------------------
+
+@software{warp,
+	title = {{Warp}: A High-performance Python Framework for GPU Simulation and Graphics},
+	author = {Macklin, Miles},
+	note = {NVIDIA GPU Technology Conference (GTC)},
+	year = {2022},
+	month = mar,
+	url = {https://github.com/NVIDIA/warp}
+}

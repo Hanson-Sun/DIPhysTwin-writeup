@@ -1,0 +1,58 @@
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Motivation and Problem statement}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Contributions}{1}{section.1.2}%
+\contentsline {chapter}{\numberline {2}Background and Related Work}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}PhysTwin and Real2Sim Digital Twins}{3}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Monocular and Video Depth Estimation}{3}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Camera Pose Estimation}{4}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Temporal Depth Stabilisation}{4}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Dense Tracking and 3D Reconstruction}{5}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Summary of the Gap}{6}{section.2.6}%
+\contentsline {chapter}{\numberline {3}System Design}{7}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Pipeline Overview}{7}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Data Collection}{8}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Pose Estimation and Extrinsics Alignment}{9}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Depth Inference}{9}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Segmentation, Shape Prior and Dense Tracking}{10}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Implementation and Robustness Fixes}{10}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Temporal Depth Smoother}{12}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Motivation}{12}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Learning a Residual Correction}{12}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Architecture}{13}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Loss Functions}{16}{section.4.4}%
+\contentsline {paragraph}{Temporal gradient matching loss.}{16}{section*.10}%
+\contentsline {paragraph}{Temporal total variation loss.}{16}{section*.11}%
+\contentsline {paragraph}{Fidelity loss.}{17}{section*.12}%
+\contentsline {paragraph}{Geometric loss.}{17}{section*.13}%
+\contentsline {paragraph}{Combined objective.}{17}{section*.14}%
+\contentsline {section}{\numberline {4.5}Training}{18}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Inference}{18}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Properties and Limitations}{20}{section.4.7}%
+\contentsline {chapter}{\numberline {5}Evaluation}{22}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Evaluation Setup and Datasets}{22}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Measuring Depth Quality Without Ground Truth}{22}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Depth against the sensor reference}{23}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Flicker removal across sequences}{25}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Effect on Tracking}{27}{section.5.5}%
+\contentsline {section}{\numberline {5.6}End-to-End Results}{28}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Comparison with the original pipeline}{29}{section.5.7}%
+\contentsline {section}{\numberline {5.8}Findings and Failure Cases}{31}{section.5.8}%
+\contentsline {section}{\numberline {5.9}Negative Results}{32}{section.5.9}%
+\contentsline {chapter}{\numberline {6}Discussion, Limitations and Future Work}{33}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Summary and Diagnosis}{33}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Limitations}{34}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Future Work}{34}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Conclusion}{35}{section.6.4}%
+\contentsline {chapter}{References}{36}{section.6.4}%
+\contentsline {chapter}{\numberline {A}Extended Results and Result Videos}{39}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Improvement Chain on the Sloth Sequence}{39}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Effect of the Temporal Depth Smoother}{40}{section.A.2}%
+\contentsline {paragraph}{Raw DA3 depth against smoothed depth.}{40}{section*.30}%
+\contentsline {paragraph}{Pipeline replay before and after smoothing.}{40}{section*.32}%
+\contentsline {section}{\numberline {A.3}Depth-Source Variants}{40}{section.A.3}%
+\contentsline {section}{\numberline {A.4}Streaming Inference}{40}{section.A.4}%
+\contentsline {section}{\numberline {A.5}Tracking Comparison with SpatialTrackerV2}{41}{section.A.5}%
+\contentsline {section}{\numberline {A.6}Environment Interaction: Rope with and without Ground Alignment}{41}{section.A.6}%
+\contentsline {section}{\numberline {A.7}Individual Demonstrations}{41}{section.A.7}%
+\contentsline {chapter}{\numberline {B}Hyper-parameters and Loss Weights}{43}{appendix.B}%
+\contentsline {chapter}{\numberline {C}Source Code}{44}{appendix.C}%

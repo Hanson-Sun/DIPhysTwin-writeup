@@ -1,0 +1,29 @@
+\chapter{Introduction}
+\label{cha:introduction}
+
+\section{Motivation and Problem statement}
+\label{sec:intro-problem}
+
+Policies for deformable manipulation are learned from recordings of real interactions, and
+digitising those recordings by hand takes 3D modelling, material parameters and manual matching. The goal is to automate that process, converting multiple RGB video recordings of the same interaction into a single \emph{digital twin} of the manipulated object.
+
+\textcite{phystwin} proposed PhysTwin, a real2sim pipeline that takes RGBD video from several
+cameras, segments the object, tracks the object and the controller, and fits a spring--mass
+\emph{warp} model for interaction in NVIDIA Warp \parencite{warp}. This work improves the robustness of PhysTwin by (1) removing the depth sensor, (2) removing camera calibration and (3) tolerating imperfect segmentation and tracking; the resulting pipeline is called DIPhysTwin. It should allow PhysTwin to be used in more flexible capture conditions, with varying degrees of camera setup and less human intervention.
+
+\section{Contributions}
+\label{sec:intro-contributions}
+
+The main contributions of this work are:
+
+\begin{enumerate}
+	\item \textbf{A depth-inference-first pipeline.} Poses and metric scale come from a dedicated
+	stage rather than the depth model, and depth is estimated per view.
+	\item \textbf{A ground-truth-free temporal depth smoother.} A small network learns a
+	\emph{residual correction} to one depth model's maps, smoothing temporal flicker in depth videos while preserving spatial consistency.
+	\item \textbf{Robustness engineering.} The pipeline handles resolutions independently, runs
+	idempotently, aligns the scene to the ground with RANSAC and propagates that transform to poses,
+	tracks and meshes, with fallbacks when shape prior fitting or dense tracking fails.
+\end{enumerate}
+
+

@@ -1,0 +1,121 @@
+\chapter{Background and Related Work}
+\label{cha:background}
+
+This chapter reviews the core components referenced in the report and identifies the gaps this project addresses.
+
+\section{PhysTwin and Real2Sim Digital Twins}
+\label{sec:bg-phystwin}
+
+PhysTwin \parencite{phystwin} takes synchronised multi-view RGBD video of a controller
+interacting with an object, segments the object, and tracks dense motion on both the object and
+the controller. It lifts those tracks into 3D with depth and trains a spring--mass \emph{warp}
+model in NVIDIA Warp \parencite{warp}. The trained model responds to a controller point in the
+simulator and reproduces soft-body behaviour.
+
+The PhysTwin pipeline assumes cameras fixed in space while the object and controller(s) move. This assumption complicates multi-view depth reconstruction.
+
+\section{Monocular and Video Depth Estimation}
+\label{sec:bg-depth}
+
+VDA \parencite{vda} is a monocular depth model that produces temporally consistent maps for a
+single view. Depth Anything 3 (DA3) \parencite{da3} predicts spatially consistent geometry from an
+arbitrary number of images, with or without known camera poses. Multi-view input does not by itself ensure
+temporal consistency for a moving scene recorded by stationary cameras. In the configuration tested
+here, depth varies between frames. The streaming adaptation processes overlapping chunks, but its
+Umeyama alignment becomes singular for larger chunks; duplicating the static views as a dynamic
+sequence helps only over a limited window (Chapter~\ref{cha:system-design}).
+
+DUSt3R and MASt3R \parencite{dust3r,mast3r} use pairwise 3D correspondences to recover poses.
+Their estimates also vary over time in the tested sequences.
+
+As of the current state of research, no model is both spatially and temporally correct. Models that reason over one frame or several
+views flicker between frames, while video-consistency models are smooth but geometrically weaker
+and monocular (Chapter~\ref{cha:smoother}).
+
+\section{Camera Pose Estimation}
+\label{sec:bg-pose}
+
+Intrinsics and extrinsics serve two purposes here: aligning depth maps with the RGB frames used
+for segmentation, and triangulating tracked 2D points into 3D tracks. They are not always
+measured during capture.
+
+Pose from the depth model was poor in both respects, misaligning 3D projections and degrading
+optimisation and training. Empirically, pairwise correspondences from DUSt3R with a heuristic scale aligned
+much better (Chapter~\ref{cha:system-design}).
+
+\section{Temporal Depth Stabilisation}
+\label{sec:bg-temporal}
+
+VDA \parencite{vda} adds temporal attention at several decoder scales and introduces a temporal
+gradient matching (TGM) loss. That loss supervises frame-to-frame \emph{change} in depth rather
+than absolute depth, and inference runs over a segment-wise sliding window.
+
+StableDPT \parencite{stabledpt} attends spatially within each frame in the encoder and
+temporally across frames in the decoder. It also adopts the TGM loss.
+
+NVDS and NVDS+ \parencite{nvds,nvdsp} stabilise depth after the fact, using sliding-window
+cross-attention together with an optical flow model, but they require metric depth.
+
+\begin{table}[H]
+	\caption{Comparison of prior temporal depth stabilisation methods}
+	\label{tab:bg-temporal}
+	\begin{center}
+		\begin{tabular}{@{}>{\raggedright\arraybackslash}p{2.2cm}
+		                  >{\raggedright\arraybackslash}p{4.6cm}
+		                  >{\raggedright\arraybackslash}p{2.4cm}
+		                  >{\raggedright\arraybackslash}p{2.2cm}
+		                  >{\raggedright\arraybackslash}p{2.4cm}@{}}
+			\toprule
+			Method & Temporal mechanism & Supervision & Ground-truth depth & Multi-camera input \\
+			\midrule
+			VDA & temporal attention at multiple decoder scales,
+			                      segment-wise sliding window & TGM loss & yes (lidar) & no (monocular video) \\
+			StableDPT & spatial attention per frame, temporal
+			                      attention across frames in decoder & TGM loss & yes (lidar) & no (monocular video) \\
+			NVDS / NVDS+ & post-hoc stabiliser, sliding-window
+			                      cross-attention + optical flow & temporal loss via flow
+			                      model & yes (sensor ground truth) & no (monocular video) \\
+			Li et al. (2023) & not stated & not stated & not stated & not verified \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+\end{table}
+
+
+All four methods need ground-truth or metric depth, and all four are monocular: each takes a single
+video stream and none accepts synchronised views from several cameras. This project
+instead needs a smoother for several synchronised views from an uncalibrated capture, trained
+\emph{without ground-truth depth} by treating a video depth model (VDA) as a motion oracle.
+
+\section{Dense Tracking and 3D Reconstruction}
+\label{sec:bg-tracking}
+
+CoTracker \parencite{cotracker} tracks points jointly rather than independently, which makes it
+more stable than pairwise optical flow. It is the tracker the base pipeline uses, and since it
+works in 2D, its tracks are lifted into 3D with the estimated depth. Tracking accuracy is
+therefore bounded by depth accuracy.
+
+MVTracker \parencite{mvtracker} tracks across several views, SpatialTrackerV2
+\parencite{spatrackerv2} tracks in 3D. On the captures used here, the multi-view tracker performed worse than CoTracker and
+the 3D tracker produced visible artefacts (Chapter~\ref{cha:evaluation}).
+
+\label{sec:bg-reconstruction}
+
+SAM and its successors \parencite{sam,sam3,groundedsam} produce promptable, open-vocabulary
+masks, and their quality depends strongly on how the object is described. Trellis
+\parencite{trellis} was evaluated as a source of mesh and shape priors, while appearance is
+reconstructed with Gaussian splatting \parencite{gaussiansplatting}.
+
+\section{Summary of the Gap}
+\label{sec:bg-gap}
+
+Each area above is well developed on its own, but few models combine the three properties needed here. No widely used
+model is spatially consistent, temporally smooth and multi-camera capable at once. Existing
+stabilisers need ground-truth depth and are monocular, and most multi-camera reconstruction
+assumes a stationary scene with a moving camera, whereas this project observes a moving object
+from static cameras.
+
+DIPhysTwin addresses the gap in two ways. The first is a ground-truth-free smoother that
+learns a residual correction to flickering depth, with a video model serving only as a motion
+oracle (Chapter~\ref{cha:smoother}). The second is a set of robustness measures that let the
+pipeline tolerate imperfect input (Chapter~\ref{cha:system-design}).

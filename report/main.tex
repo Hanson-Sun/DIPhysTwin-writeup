@@ -1,0 +1,92 @@
+% ------------------------------------------------------------------------------
+% Mathematics Project Report Template
+% by Jon Shiach 2019
+% Manchester Metropolitan University
+% ------------------------------------------------------------------------------
+\documentclass[11pt]{report} 
+
+\usepackage{projectreport}
+\usepackage{array} % ragged-right p{} columns in the comparison tables (Chapters 2 and 5)
+% Layout aids: let long URLs in the bibliography break anywhere, and give paragraphs a
+% little extra stretch so that inline citations do not overflow the text block.
+\usepackage{xurl}
+\setlength{\emergencystretch}{2em}
+
+% ------------------------------------------------------------------------------
+% Enter your details here
+% ------------------------------------------------------------------------------
+\newcommand{\name}{Hanson Sun}
+\newcommand{\course}{BSc. (Hons) Computer Science}
+\newcommand{\projecttitle}{Depth-Inference Capable and Robust PhysTwin}
+\newcommand{\submissiondate}{May 2026}
+
+
+% ------------------------------------------------------------------------------
+% Document
+% ------------------------------------------------------------------------------
+\begin{document}
+
+\maketitle
+
+% ------------------------------------------------------------------------------
+% Top matter
+% ------------------------------------------------------------------------------
+\chapter*{Abstract}
+PhysTwin is a recent real-to-simulation (real2sim) pipeline that converts RGBD video into a
+spring--mass parameterised \emph{warp} digital twin, but it assumes that depth and camera
+calibration are already available.
+
+This project presents DIPhysTwin (Depth-Inference PhysTwin), which builds an interactive digital
+twin from multi-view RGB video alone. Camera poses and metric scale are recovered with DUSt3R, and
+dense depth is inferred with Depth Anything 3 (DA3), which predicts spatially consistent geometry
+from arbitrary image sets. In our fixed-camera videos, however, its depth varies between frames.
+The available streaming adaptation processes overlapping chunks, but its Umeyama alignment breaks
+down on larger chunks; duplicating static views helps only over short windows. The central
+contribution of this work is a lightweight temporal depth smoother that learns a residual
+correction on top of the DA3 prediction. It needs no ground-truth depth: temporal behaviour is
+supervised by a video depth model, while fidelity and edge terms preserve the geometry and
+boundaries of the baseline.
+
+DIPhysTwin is evaluated on PhysTwin's released data and on approximately 30 self-recorded
+multi-view sessions spanning cloth, mats, bottles, mugs and stuffed animals. It produces working
+warp models with pose, depth and ground alignment all inferred rather than measured, and the
+quality of the result depends far more on capture conditions than on any single stage: large,
+slow-moving objects with little controller occlusion reconstruct well, whereas small, fast-moving
+objects lose 3D consistency. The remaining limitations, including the absence of true multi-view
+streaming inference, imperfect capture and calibration, and the lack of a robust 3D point tracker,
+are analysed and used to outline future work.
+
+
+\tableofcontents
+% \listoffigures
+% \listoftables
+% \lstlistoflistings		% comment out if not needed
+
+% ------------------------------------------------------------------------------
+% Main matter
+% Chapters are added to the document using the \include{chapterx} command
+% ------------------------------------------------------------------------------
+\newpage
+\setcounter{page}{0}
+\pagenumbering{arabic}
+\include{chapter1} 
+\include{chapter2}
+\include{chapter3} 
+\include{chapter4}
+\include{chapter5} 
+\include{chapter6} 
+
+
+% ------------------------------------------------------------------------------
+% Reference list
+% ------------------------------------------------------------------------------
+\addcontentsline{toc}{chapter}{References}
+\renewcommand\bibname{References}
+\printbibliography
+
+% ------------------------------------------------------------------------------
+% Appendices
+% ------------------------------------------------------------------------------
+\include{appendix}
+
+\end{document}
